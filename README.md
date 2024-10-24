@@ -29,5 +29,5 @@ This application allows users to record audio and transcribe it in real-time usi
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/audio-transcription-app.git
-   cd audio-transcription-app
+   git clone https://github.com/yourusername/SoundRecord.git
+   cd SoundRecord
