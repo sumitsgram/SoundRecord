@@ -28,7 +28,7 @@ function App() {
     try {
       socketRef.current = new WebSocket("wss://api.deepgram.com/v1/listen", [
         "token",
-        "fd04e238691ff4c6bb890e202e7921c90c99836a",
+        "DEEPGRAM_API_KEY", // Insert your DEEPGRAM API KEY OVER HERE
       ]);
 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
