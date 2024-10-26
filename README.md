@@ -15,7 +15,7 @@ This React application provides real-time transcription of audio using the Deepg
 - **Deepgram API**: Provides real-time speech recognition.
 - **WebSocket**: Enables real-time communication between the client and the server.
 - **Local Storage**: Stores past transcriptions in the user's browser.
-- **Tailwind CSS **: Simple and responsive design for ease of use.
+- **Tailwind CSS**: Simple and responsive design for ease of use.
 
 ## Getting Started
 
