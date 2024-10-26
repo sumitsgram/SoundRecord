@@ -12,6 +12,13 @@ function App() {
     const savedTranscriptions =
       JSON.parse(localStorage.getItem("transcriptions")) || [];
     setPastTranscriptions(savedTranscriptions);
+
+    // Cleanup function to close WebSocket if it exists
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
+    };
   }, []);
 
   const saveTranscription = (newTranscript) => {
@@ -25,10 +32,12 @@ function App() {
   };
 
   const startRecording = async () => {
+    if (isRecording) return; // Prevent multiple recordings
+
     try {
       socketRef.current = new WebSocket("wss://api.deepgram.com/v1/listen", [
         "token",
-        "DEEPGRAM_API_KEY", // Insert your DEEPGRAM API KEY OVER HERE
+        "DEEPGRAM_API_KEY", // Insert your DEEPGRAM API KEY HERE
       ]);
 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -60,6 +69,7 @@ function App() {
 
       socketRef.current.onerror = (error) => {
         console.error("WebSocket error:", error);
+        alert("WebSocket error: " + error.message);
       };
 
       socketRef.current.onclose = () => {
@@ -67,7 +77,9 @@ function App() {
       };
     } catch (error) {
       console.error("Error accessing microphone:", error);
-      alert("Microphone access denied.");
+      alert(
+        "Microphone access denied. Please allow microphone access in your browser settings."
+      );
     }
   };
 
@@ -101,7 +113,7 @@ function App() {
           }`}
           onClick={startRecording}
           disabled={isRecording}>
-          Start Recording
+          {isRecording ? "Recording..." : "Start Recording"}
         </button>
         <button
           className={`px-6 py-3 rounded-lg font-semibold transition duration-200 ${
